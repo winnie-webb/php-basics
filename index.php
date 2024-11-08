@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<form id="myForm">
+<form method="POST" id="myForm">
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" required>
 
@@ -21,8 +21,12 @@
 
     <button type="submit">Submit</button>
 </form>
-
 <script>
+ 
+</script>
+<script>
+   
+
 $(document).ready(function() {
     $('#myForm').validate({
         rules: {
@@ -54,7 +58,16 @@ $(document).ready(function() {
             }
         },
         submitHandler: function(form) {
-            form.submit(); // Submit the form if validation passes
+            const {name,email,password} = form
+            console.log(name,email,password)
+            $.post("submit.php",{
+                name:name.value,
+                password:password.value,
+                email:email.value
+            },function(data, status){
+    alert("Data: " + data + "\nStatus: " + status);
+  })    
+            return false;
         }
     });
 });
